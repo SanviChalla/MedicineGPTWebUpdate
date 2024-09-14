@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>DermAssist</title>
+<link rel="stylesheet" href="static/styles.css"> 
+<link rel="icon" type="image/png" href="static/icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+<body>
+
+
+
+<div id="mySidebar" class="sidebar">
+  <button class="openbtn" onclick="toggleNav()">☰</button>  
+  <a href="#" onclick="setActive(this)"><i class="fas fa-user"></i><span>Account Settings</span></a>
+  <a href="#" onclick="setActive(this)"><i class="fas fa-dna"></i><span>Upload Genomic Data</span></a>
+  <a href="#" onclick="setActive(this)"><i class="fas fa-upload"></i><span>Upload Customizing</span></a>
+  <a href="#" onclick="setActive(this)"><i class="fas fa-person"></i><span>Personal History</span></a>
+  <a href="#" onclick="setActive(this)"><i class="fas fa-history"></i><span>Family History</span></a>
+  <a href="#" onclick="setActive(this)"><i class="fas fa-clipboard-check"></i><span>Summary</span></a>
+</div>
+
+<div id="main">
+  <h2>DermAssist</h2>
+  <div class="avatarbox">
+    <button id="volume" type="submit" class="vol">
+      <i class="fa-solid fa-volume-high"></i></i>
+    </button>
+  </div>
+  <div class="chatbox">
+    <div class="chat-display" id="chatDisplay">
+        <!-- Chat messages will be displayed here -->
+    </div>
+    <div class="chat-container">
+      {% for message in data.messages %}
+        {% if message.role == 'user' %}
+          <div class="message user-message">
+            <div class="message-content">
+              <p>{{ message.content }}</p>
+            </div>
+          </div>
+        {% elif message.role == 'assistant' %}
+          <div class="message assistant-message">
+            <div class="message-content">
+              <img class="emotion-image" src="{{ message.emotion_image }}" alt="Emotion Image">
+              <div class="text-box">
+                <p>{{ message.content }}</p>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    
+  </div>
+  <form id="message-form" method="post">
+    <div class="user-input-container">
+      <input type="text" name="user_input" placeholder="Type your message..." class="user-input">
+      <button id="sendMessageButton" type="submit" class="send-button">
+        <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+  </form>
+  
+</div>
+
+<script>
+function toggleNav() {
+  var sidebar = document.getElementById("mySidebar");
+  var main = document.getElementById("main");
+
+  if (sidebar.classList.contains("expanded")) {
+    // Close sidebar
+    sidebar.classList.remove("expanded");
+    main.style.marginLeft = "50px"; // Adjust to match collapsed sidebar width
+  } else {
+    // Open sidebar
+    sidebar.classList.add("expanded");
+    main.style.marginLeft = "250px"; // Adjust to match expanded sidebar width
+  }
+}
+
+function setActive(element) {
+  // Remove active class from all links
+  var links = document.querySelectorAll('.sidebar a');
+  links.forEach(link => link.classList.remove('active'));
+
+  // Add active class to the clicked link
+  element.classList.add('active');
+}
+</script>
+   
+</body>
+</html>

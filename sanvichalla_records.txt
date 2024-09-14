@@ -1,0 +1,1 @@
+[{'role': 'system', 'content': 'AI:', 'time': 'Fri Jul 19 10:50:13 2024', 'emotion_image': 'static/icon.png'}, {'role': 'assistant', 'content': 'Hello! How can I assist you today?', 'time': 'Fri Jul 19 10:50:25 2024', 'emotion_image': 'static/icon.png'}]
